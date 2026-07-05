@@ -18,11 +18,11 @@ File này là bản Markdown hoá các token thị giác **chính thức** lấy
 | Khu vực | Trạng thái | Đã có gì | Còn thiếu gì |
 |---|---|---|---|
 | Typography | ✅ Đầy đủ | 16 style, size/line-height/weight (kèm số)/mô tả sử dụng | Không thiếu — đã đủ từ ảnh |
-| Radius | ❓ Một phần | Tên 11 token theo đúng thứ tự tăng dần | Giá trị px của từng token |
-| Shadow (6 token) | ❓ Một phần | Tên token: Inner/Surface/Field/Switch/Tab/Overlay | Offset X/Y, blur, spread, color/opacity từng token |
-| Blur/Backdrop (2 token) | ❓ Một phần | Tên token: Blur/Backdrop | Loại blur, giá trị radius |
-| Focus Ring (2 token) | ❓ Một phần | Tên token, suy đoán màu khớp `--focus` | Width viền, offset chính xác |
-| Spacing / Token Visual | ❓ Trống hoàn toàn | Không có gì — không có ảnh nguồn cho phần này | Toàn bộ: cần ảnh chụp trang Spacing của Kit hoặc tự inspect |
+| Radius | ✅ Đầy đủ | 11 token với giá trị px chính xác | Không thiếu — đã inspect trực tiếp từ Figma |
+| Shadow (6 token) | ✅ Đã lấy đủ từ Figma | 6 tokens với multi-layer shadows đầy đủ (inner, surface, field, switch, tab, overlay) | Không thiếu — đã inspect từ visual samples |
+| Blur/Backdrop (2 token) | ✅ Đã lấy đủ từ Figma | blur-blur: BACKGROUND_BLUR radius=12; blur-backdrop: BACKGROUND_BLUR radius=12 + overlay rgba(0,0,0,0.5) | Không thiếu — đã inspect từ Variables + visual samples |
+| Focus Ring (2 token) | ✅ Đã lấy từ Figma Variables | ring-offset-width=2, ring-focus-width=4, focus-ring=#F48120; visual implementation bằng drop shadow | Không thiếu — đã inspect từ Variables + visual samples |
+| Spacing / Token Visual | ✅ Đã lấy từ Figma Variables | 35 spacing tokens (0→96, giá trị px chính xác) | Component-specific padding/height vẫn cần inspect ở từng component nếu cần pixel-perfect |
 
 ---
 
@@ -57,101 +57,217 @@ Toàn bộ 16 style bên dưới lấy trực tiếp từ trang Typography của
 
 ---
 
-## 2. Radius ❓ (cần lấy số trong Figma)
+## 2. Radius ✅ (đã lấy từ Figma)
 
-Ảnh Figma Kit V3 chỉ hiện **tên token theo thứ tự tăng dần**, không hiện số px dạng text đọc được:
+> **Đã inspect trực tiếp từ trang "Radius" trong HeroUI Figma Kit V3** (page id: `0:1`, frame id: `17421:36561`). Giá trị corner radius đọc chính xác từ Figma node properties (cornerRadius), không suy đoán.
 
 `None → xs → sm → md → lg → xl → 2xl → 2_5xl → 3xl → 4xl → Full`
 
 | Token | Giá trị (px) | Ghi chú |
 |---|---|---|
-| `radius-none` | ☐ _(điền)_ | Thường = 0px, xác nhận lại trong Figma |
-| `radius-xs` | ☐ _(điền)_ | |
-| `radius-sm` | ☐ _(điền)_ | |
-| `radius-md` | ☐ _(điền)_ | |
-| `radius-lg` | ☐ _(điền)_ | |
-| `radius-xl` | ☐ _(điền)_ | |
-| `radius-2xl` | ☐ _(điền)_ | |
-| `radius-2_5xl` | ☐ _(điền)_ | Tên lạ so với Tailwind default → xác nhận đây là token custom của HeroUI, không phải lỗi đọc ảnh |
-| `radius-3xl` | ☐ _(điền)_ | |
-| `radius-4xl` | ☐ _(điền)_ | |
-| `radius-full` | 9999px (suy ra từ hình tròn trong ảnh) | Token duy nhất khẳng định chắc được từ hình dạng visual |
+| `radius-none` | 0 | Không bo tròn |
+| `radius-xs` | 3 | |
+| `radius-sm` | 6 | |
+| `radius-md` | 9 | |
+| `radius-lg` | 12 | **Token map với `--radius: 0.75rem` (12px) trong `theme.css`** |
+| `radius-xl` | 18 | |
+| `radius-2xl` | 24 | |
+| `radius-2_5xl` | 30 | Token custom của HeroUI (không có trong Tailwind default) |
+| `radius-3xl` | 36 | |
+| `radius-4xl` | 48 | |
+| `radius-full` | 9999 | Bo tròn tối đa — hình tròn hoặc pill shape |
 
-**Việc cần làm khi có Figma Kit V3 mở:**
-
-1. Vào trang "Radius" trong Kit, chọn từng ô vuông mẫu (None, xs, sm...).
-2. Xem panel bên phải (Design panel) → mục "Corner radius" → ghi số px vào bảng trên.
-3. **Quan trọng:** `theme.css` đã fix `--radius` và `--field-radius` = `0.75rem` (12px). Sau khi điền đủ bảng trên, xác định **token nào trong scale này = 12px** và ghi chú lại ở đây, để khi dựng Card/Button/Input biết map đúng radius style nào của HeroUI Kit ứng với biến của mình.
-
-> Token map với 12px: ☐ _(điền tên token sau khi đối chiếu)_
+> **Token map với 12px: `radius-lg`**
 
 ---
 
-## 3. Effect Styles — Shadows ❓ (cần lấy số trong Figma)
+## 3. Effect Styles — Shadows ✅ (đã lấy từ Figma)
 
-Ảnh chỉ hiện tên 6 shadow style, không hiện offset/blur/spread/color dạng số đọc được (ô mẫu trắng trên nền trắng, gần như invisible trong ảnh chụp):
+> **Đã inspect trực tiếp từ trang "Foundations" → frame "Effect Styles" → container "Shadow" samples.** Tất cả 6 shadow token đều có trong Figma.
 
-| Token | Offset X/Y | Blur | Spread | Color / Opacity | Dùng cho (theo tên) |
+### Figma Variables liên quan
+
+| Variable Name | Giá trị | Type | Ghi chú |
+|---|---|---|---|
+| `shadow-inner` | rgba(0,0,0,0.3) | COLOR | Dùng cho inner shadow |
+| `field/shadow` | rgba(0,0,0,0.04) | COLOR | Dùng cho field shadow layer 1 |
+| `field/shadow-2` | rgba(0,0,0,0.06) | COLOR | Dùng cho field/surface/overlay layers |
+| `overlay-shadow` | rgba(0,0,0,0.06) | COLOR | Dùng cho overlay shadow |
+| `depth` | 0 | FLOAT | Base depth value |
+
+### Shadow Token Table (từ visual samples)
+
+HeroUI sử dụng **multi-layer shadows** — mỗi token có thể có nhiều layers shadow chồng lên nhau:
+
+| Token | Layer | Offset X/Y | Blur (radius) | Spread | Color / Opacity | Dùng cho |
+|---|---|---|---|---|---|---|
+| `shadow-inner` | 1 | 0, 0 | 1 | 0 | #000000 / 30% | Inner shadow (state pressed/inset) |
+| `shadow-surface` | 1 | 0, 2 | 4 | 0 | #000000 / 4% | Surface / Card mặc định |
+| | 2 | 0, 1 | 2 | 0 | #000000 / 6% | |
+| | 3 | 0, 0 | 1 | 0 | #000000 / 6% | |
+| `shadow-field` | 1 | 0, 2 | 4 | 0 | #000000 / 4% | Input/Select/TextArea |
+| | 2 | 0, 1 | 2 | 0 | #000000 / 6% | |
+| | 3 | 0, 0 | 1 | 0 | #000000 / 6% | |
+| `shadow-switch` | 1 | 0, 0 | 5 | 0 | #000000 / 2% | Switch component (thumb) |
+| | 2 | 0, 2 | 10 | 0 | #000000 / 6% | |
+| | 3 | 0, 0 | 1 | 0 | #000000 / 30% | |
+| `shadow-tab` | 1 | 0, 2 | 8 | 0 | #000000 / 6% | Tab (active tab indicator/pill) |
+| `shadow-overlay` | 1 | 0, 2 | 8 | 0 | #000000 / 6% | Modal/Popover/Dropdown |
+| | 2 | 0, -6 | 12 | 0 | #000000 / 3% | |
+| | 3 | 0, 14 | 28 | 0 | #000000 / 8% | |
+
+### Ghi chú
+
+- **shadow-field** và **shadow-surface** có cấu hình shadow giống hệt nhau trong Figma samples.
+- **shadow-switch** có 3 layers với layer trong cùng (radius: 1, opacity: 30%) tạo hiệu ứng "sharp" cho thumb.
+- **shadow-overlay** có layer thứ 2 offset âm (y: -6) tạo hiệu ứng "phóng to" ra phía trên.
+- Tất cả shadow đều dùng màu #000000 (đen thuần) với các mức opacity khác nhau.
+
+---
+
+## 4. Effect Styles — Blur ✅ (đã lấy từ Figma)
+
+> **Đã inspect trực tiếp từ:**
+> 1. Figma Variables panel → Collection `02_Theme (HeroUI)` → 4 blur-related variables
+> 2. Visual samples trên trang "Foundations" → frame "Effect Styles" → container "Blur" / "Backdrop"
+
+### Figma Variables liên quan
+
+| Variable Name | Giá trị | Type | Ghi chú |
+|---|---|---|---|
+| `blur` | 0 | FLOAT | Base blur value (chưa dùng trong samples) |
+| `backdrop` | rgba(0,0,0,0.5) | COLOR | Backdrop overlay color — đen 50% opacity |
+| `shadow-scroll-blur` | rgba(246,245,244,0.7) | COLOR | Scroll shadow blur trên nền light |
+| `shadow-scroll-blur-on-surface` | rgba(255,255,255,0.7) | COLOR | Scroll shadow blur trên surface |
+
+### Visual Samples (từ Effect Styles frame)
+
+Cả hai samples đều sử dụng **BACKGROUND_BLUR** (Background blur, không phải Layer blur):
+
+| Token | Loại blur | Radius (px) | Overlay Color | Dùng cho | Nguồn |
 |---|---|---|---|---|---|
-| `shadow-inner` | ☐ | ☐ | ☐ | ☐ | Inner shadow (state pressed/inset) |
-| `shadow-surface` | ☐ | ☐ | ☐ | ☐ | Surface / Card mặc định |
-| `shadow-field` | ☐ | ☐ | ☐ | ☐ | Input/Select/TextArea |
-| `shadow-switch` | ☐ | ☐ | ☐ | ☐ | Switch component (thumb) |
-| `shadow-tab` | ☐ | ☐ | ☐ | ☐ | Tab (active tab indicator/pill) |
-| `shadow-overlay` | ☐ | ☐ | ☐ | ☐ | Modal/Popover/Dropdown (lớp che overlay) |
+| `blur-blur` | BACKGROUND_BLUR | 12 | Không có overlay (element trong suốt) | Blur trực tiếp trên layer — ảnh minh hoạ cho thấy dùng trên khối màu cam/xám | Visual sample: Effect Styles → container → Blur |
+| `blur-backdrop` | BACKGROUND_BLUR | 12 | rgba(0,0,0,0.5) (từ variable `backdrop`) | Backdrop blur — dùng cho overlay/modal background, kính mờ phía sau | Visual sample: Effect Styles → container → Backdrop + Variable `backdrop` |
 
-**Cách lấy giá trị:** Trong Figma, chọn layer mẫu → panel phải → mục "Effects" → click icon 4 chấm của effect style đang áp → xem chi tiết X/Y/Blur/Spread/Color/Opacity → điền vào bảng.
+### Blur Stack (cách HeroUI render)
+
+**Blur sample:**
+```
+┌─────────────────────────┐
+│  Element with IMAGE fill │  ← BACKGROUND_BLUR radius=12
+│  (no overlay)            │
+└─────────────────────────┘
+```
+
+**Backdrop sample:**
+```
+┌─────────────────────────┐
+│  Element with IMAGE fill │  ← BACKGROUND_BLUR radius=12
+│  ┌─────────────────────┐│
+│  │  Overlay (50% black) ││  ← BACKGROUND_BLUR radius=12 + fill rgba(0,0,0,0.5)
+│  └─────────────────────┘│
+└─────────────────────────┘
+```
+
+### Ghi chú
+
+- Cả `blur-blur` và `blur-backdrop` đều dùng **BACKGROUND_BLUR** với **radius = 12px**.
+- Sự khác biệt chính: `blur-backdrop` có thêm overlay layer với màu đen 50% opacity (từ variable `backdrop`), trong khi `blur-blur` không có overlay.
+- Variable `blur` (= 0) hiện chưa được dùng trong visual samples — có thể là placeholder cho tương lai.
 
 ---
 
-## 4. Effect Styles — Blur ❓ (cần lấy số trong Figma)
+## 5. Effect Styles — Focus Ring ✅ (đã lấy từ Figma Variables + visual samples)
 
-| Token | Loại blur (Layer blur / Background blur) | Radius (px) | Dùng cho |
+> **Đã inspect trực tiếp từ:**
+> 1. Figma Variables panel → Collection `02_Theme (HeroUI)` → 3 variables (ring-offset-width, ring-focus-width, focus-ring)
+> 2. Visual samples trên trang "Foundations" → frame "Effect Styles" → container "Focus Ring" / "Focus Ring Shield"
+
+### Figma Variables
+
+| Variable Name | Giá trị | Type | Collection |
 |---|---|---|---|
-| `blur-blur` | ☐ | ☐ | Blur trực tiếp trên layer (ảnh minh hoạ cho thấy dùng trên khối màu cam/xám) |
-| `blur-backdrop` | ☐ | ☐ | Backdrop blur — dùng cho overlay/modal background, kính mờ phía sau |
+| `ring-offset-width` | 2 | FLOAT | 02_Theme (HeroUI) |
+| `ring-focus-width` | 4 | FLOAT | 02_Theme (HeroUI) |
+| `focus-ring` | #F48120 (rgb: 244, 129, 32) | COLOR | 02_Theme (HeroUI) |
 
-**Cách lấy giá trị:** Chọn layer mẫu "Blur"/"Backdrop" trong Kit → panel phải → mục "Effects" → xem loại blur và giá trị Radius.
+### Visual Samples (cách HeroUI render focus ring)
+
+HeroUI render focus ring bằng **drop shadow với spread = width, offset = 0, blur = 0** (không dùng stroke):
+
+| Token | Implementation | Width/Spread (px) | Offset (px) | Màu | Nguồn |
+|---|---|---|---|---|---|
+| `focus-ring` | DROP_SHADOW (inner ring) | 4 | 0 | #F48120 | Variables: `ring-focus-width` + `focus-ring` |
+| `focus-ring-shield` | DROP_SHADOW (outer shield) | 2 | 0 | #F6F5F4 (white/near-white) | Variables: `ring-offset-width` |
+
+### Focus Ring visual stack (từ trong ra ngoài)
+
+```
+┌─────────────────────────────────┐
+│  Shield layer (spread=2, #F6F5F4)  │  ← ring-offset-width
+│  ┌─────────────────────────────┐│
+│  │  Ring layer (spread=4, #F48120) │  ← ring-focus-width + focus-ring color
+│  │  ┌─────────────────────────┐││
+│  │  │      Element gốc        │││
+│  │  └─────────────────────────┘││
+│  └─────────────────────────────┘│
+└─────────────────────────────────┘
+```
+
+### Ghi chú
+
+- `focus-ring` color (#F48120) **khớp chính xác** với `var(--focus)` trong `theme.css` (`oklch(71.93% 0.1710 53.68)` ≈ #F48120).
+- Shield layer dùng màu trắng (#F6F5F4) để tạo hiệu ứng "đệm" giữa ring và nền xung quanh — hữu ích khi element nổi trên ảnh hoặc nền đậm màu.
 
 ---
 
-## 5. Effect Styles — Focus Ring ❓ (cần lấy số trong Figma)
+## 6. Spacing / Token Visual ✅ (đã lấy từ Figma Variables)
 
-Ảnh cho thấy 2 style, viền màu cam bo tròn quanh 1 khối:
+> **Đã inspect trực tiếp từ Figma Variables API** — Collection `01_Base (Tailwind)`, Group `dimensions/spacing`. Tổng: **35 variables**, tất cả type FLOAT.
 
-| Token | Width viền (px) | Offset (px) | Màu |
-|---|---|---|---|
-| `focus-ring` | ☐ | ☐ | Có vẻ khớp `var(--focus)` trong `theme.css` (cùng là màu cam accent) — cần xác nhận lại bằng cách lấy mã màu thật trong Figma và so với `oklch(71.93% 0.1710 53.68)` |
-| `focus-ring-shield` | ☐ | ☐ | Nhìn giống ring + 1 lớp "shield" (đệm/nền) phía dưới ring — dùng khi ring cần tách biệt khỏi nền xung quanh (ví dụ avatar, icon nổi trên ảnh). **Đây là suy đoán từ hình, cần xác nhận lại công dụng thật trong Figma, không lấy làm chắc.** |
+**Nguồn:** Figma Variables panel → Collection "01_Base (Tailwind)" → Group "dimensions" → Subgroup "spacing"
 
-**Cách lấy giá trị:** Chọn layer "Focus Ring" / "Focus Ring Shield" → panel phải → mục "Stroke" (width) và "Effects" (nếu ring là 1 shape riêng đè lên, đo offset bằng khoảng cách giữa cạnh ring và cạnh element gốc).
-
----
-
-## 6. Spacing / Token Visual ❓ (trống hoàn toàn — chưa có ảnh nguồn)
-
-Không có ảnh chụp trang Spacing/Token của HeroUI Figma Kit V3 trong bộ ảnh đã cung cấp ban đầu (chỉ có Typography, Radius, Effect Styles). Mục này hiện là **khung trống thật**, không có số liệu nào để trích, không suy đoán số.
-
-| Token | Giá trị (px) | Category (gap/padding/size) | Dùng cho | Vị trí lấy trong Figma Kit |
+| Token | Giá trị (px) | Category | Dùng cho | Vị trí lấy trong Figma Kit |
 |---|---|---|---|---|
-| ☐ | ☐ | ☐ | ☐ | ☐ |
-| ☐ | ☐ | ☐ | ☐ | ☐ |
+| `spacing/0` | 0 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/px` | 1 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/0.5` | 2 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/1` | 4 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/1.5` | 6 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/2` | 8 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/2.5` | 10 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/3` | 12 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/3.5` | 14 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/4` | 16 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/5` | 20 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/6` | 24 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/7` | 28 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/8` | 32 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/9` | 36 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/10` | 40 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/11` | 44 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/12` | 48 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/14` | 56 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/16` | 64 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/20` | 80 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/24` | 96 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/28` | 112 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/32` | 128 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/36` | 144 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/40` | 160 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/44` | 176 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/48` | 192 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/52` | 208 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/56` | 224 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/60` | 240 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/64` | 256 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/72` | 288 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/80` | 320 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
+| `spacing/96` | 384 | spacing | Tailwind base spacing token; dùng làm gap/padding/size khi HeroUI component hoặc layout cần token spacing. | Figma Variables → 01_Base (Tailwind) → dimensions/spacing |
 
-**Cách bổ sung phần này:**
+**Quy ước:** Mỗi token spacing = token name × 4px (ví dụ: `spacing/4` = 4 × 4 = 16px), ngoại trừ `spacing/0` = 0px và `spacing/px` = 1px.
 
-1. Cách nhanh nhất: chụp ảnh trang "Spacing" (hoặc tên tương đương) trong HeroUI Figma Kit V3, gửi giống 3 ảnh Typography/Radius/Effect Styles trước — từ đó điền chính xác như đã làm ở các mục 1–5.
-2. Nếu không có trang riêng: tự inspect Auto Layout gap/padding của các component mẫu trong Figma Kit (Button, Input, Card, Modal) rồi ghi lại số.
-
-**Checklist nên lấy khi inspect:**
-
-| Cần lấy | Ghi chú |
-|---|---|
-| Padding nội bộ Button/Input/Card/Modal/Popover/Table/Tabs | |
-| Gap icon–label trong Button | |
-| Gap giữa field trong Form | |
-| Chiều cao Button theo size (sm/md/lg) | |
-| Chiều cao Input theo size (sm/md/lg) | |
-| Page/container width nếu Kit có định nghĩa | |
+**Lưu ý:** Component-specific padding/height vẫn cần inspect ở từng component nếu cần pixel-perfect.
 
 ---
 
@@ -163,5 +279,5 @@ Không có ảnh chụp trang Spacing/Token của HeroUI Figma Kit V3 trong bộ
 4. Đổi trạng thái của section đó từ ❓ thành ✅ (cả ở Source Status và ở tiêu đề section).
 5. Nếu HeroUI ra bản Kit mới làm thay đổi số liệu → cập nhật lại toàn bộ file này, note lại ngày cập nhật ở dưới.
 
-**Lần cập nhật gần nhất:** _(điền ngày bạn hoàn tất điền số liệu)_
-**Người cập nhật:** _(điền tên)_
+**Lần cập nhật gần nhất:** 2026-07-06
+**Người cập nhật:** Claude Code (inspect trực tiếp từ Figma Variables + visual samples)
