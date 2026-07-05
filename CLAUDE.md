@@ -14,6 +14,20 @@
 - KHÔNG đọc, KHÔNG tham chiếu `docs/heroui/native/` hoặc `docs/heroui/all/` trừ khi user yêu cầu rõ bằng chữ.
 - Nếu search HeroUI docs trả về kết quả từ `native/` hoặc `all/`, bỏ qua, chỉ dùng `react/`.
 
+## 1.1 Scope Readiness Lock
+
+Chỉ dựng high-fidelity UI cho các phạm vi đã đủ decision:
+
+| Phạm vi | Trạng thái | Rule |
+|---|---|---|
+| Shipper Guest mobile web | Được dựng | Mobile-responsive web, không cài app, target 375–430px |
+| Locker Operator web dashboard + responsive field mobile | Được dựng | Dùng HeroUI React + Dashboard Shell trong `BOXORA-VISUAL-SCALE.md` |
+| Administrator desktop dashboard | Được dựng | Desktop first |
+| Resident App | Chưa dựng high-fidelity | Platform còn `Needs design decision`; không tự assume HeroUI React/HeroUI Native/Flutter |
+| Administrator mobile | Chưa dựng high-fidelity | Mobile còn `Needs design decision`; không tự dựng responsive mobile chi tiết |
+
+Nếu user yêu cầu dựng Resident App hoặc Admin mobile khi decision còn thiếu, tạo note `Needs design decision` và hỏi/chờ user chốt platform/scope trước. Không tự mở rộng phạm vi để “hoàn thành task”.
+
 ## 2. Source Priority — BẮT BUỘC đọc trước khi design
 
 Thứ tự nguồn sự thật, không đảo:
@@ -29,20 +43,46 @@ Thứ tự nguồn sự thật, không đảo:
 
 Nếu giá trị cần dùng không có trong bất kỳ nguồn nào ở trên → áp dụng "Missing Decision Rule" ở mục 7 của `BOXORA-VISUAL-SCALE.md`: KHÔNG tự bịa số, tạo Figma note tên `Needs design decision` ghi rõ đang thiếu gì.
 
+## 2.1 Component Resolution Rule
+
+Không được giả định mọi tên trong `BOXORA-VISUAL-SCALE.md` đều là component chính thức của HeroUI.
+
+Áp dụng khi gặp các từ như `Stepper`, `Timeline`, `Segmented control`, `Banner`, `Form`, `Filter`, `Chart`, `Grid`, `QR/OTP component`, `Image upload`:
+
+1. Tra `docs/heroui/react/llms-components.txt`.
+2. Nếu component chính thức tồn tại → dùng đúng anatomy/props/variants/states từ docs.
+3. Nếu không có component chính thức nhưng có composition pattern trong `docs/heroui/react/llms-patterns.txt` → dùng pattern đó.
+4. Nếu cả component và pattern đều không có → không tự invent component mới dưới tên HeroUI. Tạo note `Needs design decision — component/pattern chưa chốt`.
+5. Nếu user chốt custom pattern riêng cho Boxora → đặt tên layer rõ là `Custom Pattern`, không đặt như component HeroUI chính thức.
+
+## 2.2 Token / Color Lock
+
+- Màu chỉ lấy từ `theme.css`.
+- Không dùng token không tồn tại trong `theme.css`, ví dụ `--primary`, `--secondary`, `--info`, nếu file không định nghĩa.
+- Không tự tạo palette riêng cho trạng thái locker/parcel/incident.
+- Không hard-code màu Hex trong Figma trừ khi đang map chính xác từ token đã có trong `theme.css` hoặc `HEROUI-FIGMA-KIT-V3-SPECS.md`.
+- Typography/radius/shadow/blur/focus/spacing chỉ lấy từ `HEROUI-FIGMA-KIT-V3-SPECS.md` hoặc HeroUI Figma Kit V3 đã attach để đối chiếu.
+- Nếu cần token mới → `Needs design decision`, không tự tạo.
+
 ## 3. Quy trình dựng 1 màn hình mới (Workflow)
 
 Theo đúng thứ tự, không bỏ bước:
 
 1. Xác định actor và use case (mã UC theo SRS nếu có) đang dựng.
-2. Tra `BOXORA-VISUAL-SCALE.md` mục 1 (Screen Inventory) — nếu use case đã có dòng, dùng đúng tên frame/component gợi ý ở đó làm điểm khởi đầu; nếu chưa có, thêm dòng mới vào bảng đó trước khi dựng.
-3. Tra `docs/heroui/react/llms-components.txt` để chọn component HeroUI phù hợp và xem đúng props/variant/state component đó hỗ trợ. Component gợi ý sẵn trong Screen Inventory chỉ là điểm khởi đầu, không phải quyết định cuối.
-4. Nếu có nhiều component ghép lại, tra `docs/heroui/react/llms-patterns.txt` để lấy đúng pattern composition.
-5. Áp token Typography/Radius/Shadow/Focus/Spacing từ `HEROUI-FIGMA-KIT-V3-SPECS.md`.
-6. Áp màu từ `theme.css`.
-7. Nếu màn hình có nghiệp vụ locker riêng (trạng thái ngăn tủ, parcel, incident, fee...) hoặc cần copy tiếng Việt/empty-error state → tra đúng mục tương ứng trong `BOXORA-VISUAL-SCALE.md` (mục 3–6).
-8. Nếu bất kỳ bước trên thiếu giá trị → tạo Figma note `Needs design decision`, không tự đoán, không bỏ qua bước để "xong việc".
-9. Đặt tên Page/Frame/Layer theo mục 4 (Figma Naming Convention) trước khi coi màn hình là hoàn tất.
-10. Cập nhật cột "Trạng thái dựng" trong Screen Inventory (`BOXORA-VISUAL-SCALE.md` mục 1) sau khi hoàn tất.
+2. Kiểm tra scope readiness ở mục 1.1. Nếu screen thuộc Resident App high-fidelity hoặc Admin mobile khi còn `Needs design decision`, không dựng tiếp.
+3. Tra `BOXORA-VISUAL-SCALE.md` mục 1 (Screen Inventory). Nếu use case đã có dòng, dùng đúng frame name làm điểm khởi đầu. Nếu chưa có, thêm dòng mới vào bảng đó trước khi dựng.
+4. Tra `BOXORA-VISUAL-SCALE.md` mục 1.1 (Use Case Icon Mapping) nếu screen có navigation, quick action, card header, title icon, empty state hoặc error state liên quan đến UC.
+5. Tra `docs/heroui/react/llms-components.txt` để chọn component HeroUI phù hợp và xem đúng props/variant/state component đó hỗ trợ.
+6. Áp dụng Component Resolution Rule ở mục 2.1 với mọi tên component/pattern chưa chắc là HeroUI chính thức. Không tự tạo component giả mạo HeroUI.
+7. Nếu có nhiều component ghép lại, tra `docs/heroui/react/llms-patterns.txt` để lấy đúng pattern composition.
+8. Áp token Typography/Radius/Shadow/Blur/Focus/Spacing từ `HEROUI-FIGMA-KIT-V3-SPECS.md`.
+9. Áp màu từ `theme.css` theo Token / Color Lock ở mục 2.2.
+10. Nếu màn hình có nghiệp vụ locker riêng (trạng thái ngăn tủ, parcel, incident, fee...) hoặc cần copy tiếng Việt/empty-error state → tra đúng mục tương ứng trong `BOXORA-VISUAL-SCALE.md` (mục 3–6).
+11. Nếu bất kỳ bước trên thiếu giá trị → tạo Figma note `Needs design decision`, không tự đoán, không bỏ qua bước để “xong việc”.
+12. Đặt tên Page/Frame/Layer theo mục 4 (Figma Naming Convention) trước khi coi màn hình là hoàn tất.
+13. Chạy checklist ở mục 10 (Completion Gate).
+14. Cập nhật cột `Trạng thái dựng` trong Screen Inventory (`BOXORA-VISUAL-SCALE.md` mục 1) sau khi hoàn tất.
+
 
 ## 4. Figma Naming Convention
 
@@ -54,9 +94,14 @@ Theo đúng thứ tự, không bỏ bước:
 
 ## 5. Icon System
 
-- Mặc định: `lucide-react` (phổ biến khi dùng cùng HeroUI, style outline nhất quán).
-- Trước khi dựng icon trong Figma, xác nhận lại với user icon set chính thức của Boxora là gì.
-- Nếu chưa xác nhận, tạo Figma note `Needs design decision — icon set chưa chốt` tại vị trí icon đầu tiên cần dùng, không tự chọn icon ngẫu nhiên từ nhiều nguồn khác nhau (tránh trộn style icon). Nếu user xác nhận icon set, dùng nhất quán từ đó.
+- Icon set chính thức của Boxora: `lucide-react`.
+- Không dùng icon set khác nếu user không yêu cầu rõ.
+- Không trộn nhiều icon style khác nhau trong cùng file Figma.
+- Khi dựng icon trong Figma, dùng style outline nhất quán theo Lucide: stroke đều, round cap/join, optical alignment tốt với text.
+- Icon không được hard-code màu riêng. Icon phải kế thừa màu qua `currentColor` hoặc map theo semantic token từ `theme.css` (`--accent`, `--success`, `--warning`, `--danger`, `--default`, `--muted`, `--foreground`...).
+- Icon-only action trong UI phải có label/annotation rõ ràng trong Figma để sau này code có thể map sang `aria-label`.
+- Không tự chọn icon mới nếu use case đã có mapping trong `BOXORA-VISUAL-SCALE.md`.
+- Nếu phát sinh use case/icon mới chưa có mapping → tạo note `Needs design decision — icon chưa chốt`, không tự bịa.
 
 ## 6. Light / Dark Mode Workflow
 
@@ -103,7 +148,26 @@ Thứ tự tra cứu khi dựng state:
 - Khi `BOXORA-VISUAL-SCALE.md` thay đổi số liệu layout/nghiệp vụ → áp dụng cho screen mới tạo sau đó; không bắt buộc sửa retroactive các screen cũ trừ khi user yêu cầu.
 - Khi có quyết định mới làm thay đổi assumption cũ đã đánh dấu "cần xác nhận lại" (ví dụ tech stack Resident app) → cập nhật ngay dòng đó trong `BOXORA-VISUAL-SCALE.md`, không để tồn đọng cả 2 phiên bản thông tin cùng lúc.
 
-## 10. Current Repository Structure
+## 10. Completion Gate — bắt buộc trước khi báo xong
+
+Một screen chỉ được xem là hoàn tất khi đạt đủ các điều kiện:
+
+| Nhóm | Điều kiện |
+|---|---|
+| Scope | Không vi phạm Scope Readiness Lock |
+| Source | Đã dùng đúng Source Priority, không đảo nguồn |
+| Component | Mọi component đã được xác nhận qua HeroUI React docs hoặc được đánh dấu custom/Needs decision |
+| Token | Typography/radius/shadow/blur/focus/spacing lấy từ `HEROUI-FIGMA-KIT-V3-SPECS.md` |
+| Color | Màu lấy từ `theme.css`, không dùng token không tồn tại |
+| Icon | Icon theo `lucide-react` và đúng mapping nếu có UC |
+| Copy | Copy tiếng Việt đúng thuật ngữ trong `BOXORA-VISUAL-SCALE.md` |
+| State | Có default/hover/focus/disabled/error/loading/empty/warning nếu component hoặc screen cần |
+| Naming | Page/Frame/Layer không dùng tên rác như `Frame 1`, `Rectangle 23` |
+| Missing | Mọi thiếu sót đều có note `Needs design decision` rõ ràng |
+
+Nếu một điều kiện chưa đạt, không báo “done”. Ghi rõ blocker hoặc tạo note trong Figma.
+
+## 11. Current Repository Structure
 
 Root folder: `Figma-boxora`
 
@@ -126,7 +190,7 @@ CLAUDE.md
 skills-lock.json
 ```
 
-## 11. MCP
+## 12. MCP
 
 - Server đang dùng: `figma-console-mcp`.
 - Không tự ý gọi MCP khác ngoài Figma trong flow design.
