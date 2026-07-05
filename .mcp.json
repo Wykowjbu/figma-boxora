@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "heroui-react": {
+      "command": "C:/tools/node-v24.18.0-win-x64/npx.cmd",
+      "args": ["-y", "@heroui/react-mcp@latest"]
+    }
+  }
+}

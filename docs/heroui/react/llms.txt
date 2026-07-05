@@ -1,0 +1,148 @@
+# HeroUI React LLMs.txt Quick Reference Index
+
+> Documentation for HeroUI v3 React component library.
+
+HeroUI v3 React is built on Tailwind CSS v4 and React Aria Components.
+
+## Key Features
+- Beautiful by default
+- Accessible
+- Flexible
+- Developer-friendly with typed APIs
+
+## Components
+
+### Buttons
+- Button: https://www.heroui.com/en/docs/react/components/button
+- ButtonGroup: https://www.heroui.com/en/docs/react/components/button-group
+- CloseButton: https://www.heroui.com/en/docs/react/components/close-button
+- ToggleButton: https://www.heroui.com/en/docs/react/components/toggle-button
+- ToggleButtonGroup: https://www.heroui.com/en/docs/react/components/toggle-button-group
+
+### Selection
+- Dropdown: https://www.heroui.com/en/docs/react/components/dropdown
+- ListBox: https://www.heroui.com/en/docs/react/components/listbox
+- Select: https://www.heroui.com/en/docs/react/components/select
+- ComboBox: https://www.heroui.com/en/docs/react/components/combobox
+- Autocomplete: https://www.heroui.com/en/docs/react/components/autocomplete
+
+### Color
+- ColorArea: https://www.heroui.com/en/docs/react/components/color-area
+- ColorField: https://www.heroui.com/en/docs/react/components/color-field
+- ColorPicker: https://www.heroui.com/en/docs/react/components/color-picker
+- ColorSlider: https://www.heroui.com/en/docs/react/components/color-slider
+- ColorSwatch: https://www.heroui.com/en/docs/react/components/color-swatch
+- ColorSwatchPicker: https://www.heroui.com/en/docs/react/components/color-swatch-picker
+
+### Forms/Input
+- Input: https://www.heroui.com/en/docs/react/components/input
+- TextArea: https://www.heroui.com/en/docs/react/components/textarea
+- TextField: https://www.heroui.com/en/docs/react/components/textfield
+- NumberField: https://www.heroui.com/en/docs/react/components/number-field
+- SearchField: https://www.heroui.com/en/docs/react/components/search-field
+- InputOTP: https://www.heroui.com/en/docs/react/components/input-otp
+- InputGroup: https://www.heroui.com/en/docs/react/components/input-group
+- Checkbox: https://www.heroui.com/en/docs/react/components/checkbox
+- CheckboxGroup: https://www.heroui.com/en/docs/react/components/checkbox-group
+- RadioGroup: https://www.heroui.com/en/docs/react/components/radio-group
+- Switch: https://www.heroui.com/en/docs/react/components/switch
+- Slider: https://www.heroui.com/en/docs/react/components/slider
+
+### Date/Time
+- Calendar: https://www.heroui.com/en/docs/react/components/calendar
+- DateField: https://www.heroui.com/en/docs/react/components/date-field
+- DatePicker: https://www.heroui.com/en/docs/react/components/date-picker
+- DateRangePicker: https://www.heroui.com/en/docs/react/components/date-range-picker
+- RangeCalendar: https://www.heroui.com/en/docs/react/components/range-calendar
+- TimeField: https://www.heroui.com/en/docs/react/components/time-field
+
+### Feedback
+- Alert: https://www.heroui.com/en/docs/react/components/alert
+- Meter: https://www.heroui.com/en/docs/react/components/meter
+- ProgressBar: https://www.heroui.com/en/docs/react/components/progress-bar
+- ProgressCircle: https://www.heroui.com/en/docs/react/components/progress-circle
+- Skeleton: https://www.heroui.com/en/docs/react/components/skeleton
+- Spinner: https://www.heroui.com/en/docs/react/components/spinner
+- Toast: https://www.heroui.com/en/docs/react/components/toast
+
+### Layout
+- Card: https://www.heroui.com/en/docs/react/components/card
+- Separator: https://www.heroui.com/en/docs/react/components/separator
+- Surface: https://www.heroui.com/en/docs/react/components/surface
+- Toolbar: https://www.heroui.com/en/docs/react/components/toolbar
+- Accordion: https://www.heroui.com/en/docs/react/components/accordion
+- Disclosure: https://www.heroui.com/en/docs/react/components/disclosure
+- DisclosureGroup: https://www.heroui.com/en/docs/react/components/disclosure-group
+- Tabs: https://www.heroui.com/en/docs/react/components/tabs
+- Breadcrumbs: https://www.heroui.com/en/docs/react/components/breadcrumbs
+- Pagination: https://www.heroui.com/en/docs/react/components/pagination
+
+### Display
+- Badge: https://www.heroui.com/en/docs/react/components/badge
+- Chip: https://www.heroui.com/en/docs/react/components/chip
+- Avatar: https://www.heroui.com/en/docs/react/components/avatar
+- Kbd: https://www.heroui.com/en/docs/react/components/kbd
+- Typography: https://www.heroui.com/en/docs/react/components/typography
+- ScrollShadow: https://www.heroui.com/en/docs/react/components/scroll-shadow
+
+### Overlay
+- Modal: https://www.heroui.com/en/docs/react/components/modal
+- AlertDialog: https://www.heroui.com/en/docs/react/components/alert-dialog
+- Drawer: https://www.heroui.com/en/docs/react/components/drawer
+- Popover: https://www.heroui.com/en/docs/react/components/popover
+- Tooltip: https://www.heroui.com/en/docs/react/components/tooltip
+
+### Navigation
+- Link: https://www.heroui.com/en/docs/react/components/link
+
+### Form Structure
+- Label: https://www.heroui.com/en/docs/react/components/label
+- Description: https://www.heroui.com/en/docs/react/components/description
+- ErrorMessage: https://www.heroui.com/en/docs/react/components/error-message
+- FieldError: https://www.heroui.com/en/docs/react/components/field-error
+- Fieldset: https://www.heroui.com/en/docs/react/components/fieldset
+- Form: https://www.heroui.com/en/docs/react/components/form
+
+## Getting-started
+
+- Introduction: https://www.heroui.com/en/docs/react/getting-started
+- Animation: https://www.heroui.com/en/docs/react/getting-started/animation
+- Colors: https://www.heroui.com/en/docs/react/getting-started/colors
+- Composition: https://www.heroui.com/en/docs/react/getting-started/composition
+- Dark Mode: https://www.heroui.com/en/docs/react/getting-started/dark-mode
+- Styling: https://www.heroui.com/en/docs/react/getting-started/styling
+- Theming: https://www.heroui.com/en/docs/react/getting-started/theming
+- CLI: https://www.heroui.com/en/docs/react/getting-started/cli
+- Design Principles: https://www.heroui.com/en/docs/react/getting-started/design-principles
+- Frameworks: https://www.heroui.com/en/docs/react/getting-started/frameworks
+- Quick Start: https://www.heroui.com/en/docs/react/getting-started/quick-start
+- Agent Skills: https://www.heroui.com/en/docs/react/getting-started/agent-skills
+- AGENTS.md: https://www.heroui.com/en/docs/react/getting-started/agents-md
+- LLMs.txt: https://www.heroui.com/en/docs/react/getting-started/llms-txt
+- MCP Server: https://www.heroui.com/en/docs/react/getting-started/mcp-server
+
+## Releases
+
+- Alpha 32: https://www.heroui.com/en/docs/react/releases/alpha-32
+- Alpha 33: https://www.heroui.com/en/docs/react/releases/alpha-33
+- Alpha 34: https://www.heroui.com/en/docs/react/releases/alpha-34
+- Alpha 35: https://www.heroui.com/en/docs/react/releases/alpha-35
+- Beta 1: https://www.heroui.com/en/docs/react/releases/beta-1
+- Beta 2: https://www.heroui.com/en/docs/react/releases/beta-2
+- Beta 3: https://www.heroui.com/en/docs/react/releases/beta-3
+- Beta 4: https://www.heroui.com/en/docs/react/releases/beta-4
+- Beta 6: https://www.heroui.com/en/docs/react/releases/beta-6
+- Beta 7: https://www.heroui.com/en/docs/react/releases/beta-7
+- Beta 8: https://www.heroui.com/en/docs/react/releases/beta-8
+- RC 1: https://www.heroui.com/en/docs/react/releases/rc-1
+- v3.0.0: https://www.heroui.com/en/docs/react/releases/v3-0-0
+- v3.0.2: https://www.heroui.com/en/docs/react/releases/v3-0-2
+- v3.0.3: https://www.heroui.com/en/docs/react/releases/v3-0-3
+- v3.0.4: https://www.heroui.com/en/docs/react/releases/v3-0-4
+- v3.0.5: https://www.heroui.com/en/docs/react/releases/v3-0-5
+
+## Migration
+
+- Migration Overview: https://www.heroui.com/en/docs/react/migration
+- Full Migration Guide: https://www.heroui.com/en/docs/react/migration/full-migration
+- Incremental Migration: https://www.heroui.com/en/docs/react/migration/incremental-migration

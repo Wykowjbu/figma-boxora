@@ -1,0 +1,90 @@
+# HeroUI Native LLMs.txt Quick Reference Index
+
+> Documentation for HeroUI Native component library.
+
+HeroUI Native uses Tailwind v4 via Uniwind, with animations, accessibility, and customization.
+
+## Key Features
+- Beautiful by default
+- Accessible
+- Flexible
+- Developer-friendly with typed APIs
+
+## Components
+
+- All Components: https://www.heroui.com/en/docs/native/components
+- Button: https://www.heroui.com/en/docs/native/components/button — triggers action on press
+- CloseButton: https://www.heroui.com/en/docs/native/components/close-button — closes dialogs/modals
+- LinkButton: https://www.heroui.com/en/docs/native/components/link-button — ghost variant, no highlight feedback, inline link-style
+- Menu: https://www.heroui.com/en/docs/native/components/menu — floating context menu with positioning, selection groups, multiple modes
+- TagGroup: https://www.heroui.com/en/docs/native/components/tag-group — compound component for selectable tags with optional removal
+- Slider: https://www.heroui.com/en/docs/native/components/slider — draggable input for value or range within bounds
+- Switch: https://www.heroui.com/en/docs/native/components/switch — toggle between on/off
+- Chip: https://www.heroui.com/en/docs/native/components/chip — compact capsule-shaped element
+- Alert: https://www.heroui.com/en/docs/native/components/alert — important messages with status indicators
+- SkeletonGroup: https://www.heroui.com/en/docs/native/components/skeleton-group — coordinates multiple skeleton placeholders with centralized animation
+- Skeleton: https://www.heroui.com/en/docs/native/components/skeleton — loading placeholder with shimmer/pulse
+- Spinner: https://www.heroui.com/en/docs/native/components/spinner — animated loading indicator
+- Checkbox: https://www.heroui.com/en/docs/native/components/checkbox — toggle checked/unchecked
+- ControlField: https://www.heroui.com/en/docs/native/components/control-field — combines label, description, and control (Switch/Checkbox) into single pressable area
+- Description: https://www.heroui.com/en/docs/native/components/description — accessible descriptions and helper text
+- FieldError: https://www.heroui.com/en/docs/native/components/field-error — validation error with smooth animations
+- InputGroup: https://www.heroui.com/en/docs/native/components/input-group — groups input with optional prefix/suffix decorators
+- InputOTP: https://www.heroui.com/en/docs/native/components/input-otp — OTP entry with individual character slots, animations, validation
+- Input: https://www.heroui.com/en/docs/native/components/input — text input with styled border and background
+- Label: https://www.heroui.com/en/docs/native/components/label — form field labeling with required indicators and validation states
+- RadioGroup: https://www.heroui.com/en/docs/native/components/radio-group — set of radio buttons, single selection
+- SearchField: https://www.heroui.com/en/docs/native/components/search-field — compound search input for filtering/querying
+- Select: https://www.heroui.com/en/docs/native/components/select — list of options triggered by button
+- TextArea: https://www.heroui.com/en/docs/native/components/text-area — multiline text input with styled border and background
+- TextField: https://www.heroui.com/en/docs/native/components/text-field — text input with label, description, error handling
+- Card: https://www.heroui.com/en/docs/native/components/card — card container with flexible layout sections
+- Separator: https://www.heroui.com/en/docs/native/components/separator — simple line for visual separation
+- Surface: https://www.heroui.com/en/docs/native/components/surface — container with elevation and background styling
+- Avatar: https://www.heroui.com/en/docs/native/components/avatar — user avatar with images, initials, or fallback icons
+- Accordion: https://www.heroui.com/en/docs/native/components/accordion — collapsible content panel
+- ListGroup: https://www.heroui.com/en/docs/native/components/list-group — Surface-based container grouping list items with consistent layout
+- Tabs: https://www.heroui.com/en/docs/native/components/tabs — tabbed views with animated transitions and indicators
+- BottomSheet: https://www.heroui.com/en/docs/native/components/bottom-sheet — slides up from bottom with animations and swipe-to-dismiss
+- Dialog: https://www.heroui.com/en/docs/native/components/dialog — modal overlay with animated transitions and gesture dismissal
+- Popover: https://www.heroui.com/en/docs/native/components/popover — floating content panel anchored to trigger with placement options
+- Toast: https://www.heroui.com/en/docs/native/components/toast — temporary notifications at top or bottom
+- Typography: https://www.heroui.com/en/docs/native/components/text — primitive for styled text with semantic type variants
+- PressableFeedback: https://www.heroui.com/en/docs/native/components/pressable-feedback — press interaction visual feedback with scale animation
+- ScrollShadow: https://www.heroui.com/en/docs/native/components/scroll-shadow — dynamic gradient shadows based on scroll position
+
+## Getting-started
+
+- Introduction: https://www.heroui.com/en/docs/native/getting-started
+- Animation: https://www.heroui.com/en/docs/native/getting-started/animation
+- Colors: https://www.heroui.com/en/docs/native/getting-started/colors
+- Composition: https://www.heroui.com/en/docs/native/getting-started/composition
+- Portal: https://www.heroui.com/en/docs/native/getting-started/portal
+- Provider: https://www.heroui.com/en/docs/native/getting-started/provider
+- Styling: https://www.heroui.com/en/docs/native/getting-started/styling
+- Theming: https://www.heroui.com/en/docs/native/getting-started/theming
+- Design Principles: https://www.heroui.com/en/docs/native/getting-started/design-principles
+- Quick Start: https://www.heroui.com/en/docs/native/getting-started/quick-start
+- Agent Skills: https://www.heroui.com/en/docs/native/getting-started/agent-skills
+- AGENTS.md: https://www.heroui.com/en/docs/native/getting-started/agents-md
+- LLMs.txt: https://www.heroui.com/en/docs/native/getting-started/llms-txt
+- MCP Server: https://www.heroui.com/en/docs/native/getting-started/mcp-server
+
+## Releases
+
+- Beta 10: https://www.heroui.com/en/docs/native/releases/beta-10
+- Beta 11: https://www.heroui.com/en/docs/native/releases/beta-11
+- Beta 12: https://www.heroui.com/en/docs/native/releases/beta-12
+- Beta 13: https://www.heroui.com/en/docs/native/releases/beta-13
+- CLI v1.0.0: https://www.heroui.com/en/docs/native/releases/cli-v1-0-0
+- All Releases: https://www.heroui.com/en/docs/native/releases
+- RC 1: https://www.heroui.com/en/docs/native/releases/rc-1
+- RC 2: https://www.heroui.com/en/docs/native/releases/rc-2
+- RC 3: https://www.heroui.com/en/docs/native/releases/rc-3
+- RC 4: https://www.heroui.com/en/docs/native/releases/rc-4
+- v1.0.0: https://www.heroui.com/en/docs/native/releases/v1-0-0
+- v1.0.1: https://www.heroui.com/en/docs/native/releases/v1-0-1
+- v1.0.2: https://www.heroui.com/en/docs/native/releases/v1-0-2
+- v1.0.3: https://www.heroui.com/en/docs/native/releases/v1-0-3
+- v1.0.4: https://www.heroui.com/en/docs/native/releases/v1-0-4
+- v1.0.5: https://www.heroui.com/en/docs/native/releases/v1-0-5
